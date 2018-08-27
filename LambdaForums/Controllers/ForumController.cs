@@ -1,7 +1,9 @@
 ﻿using LambdaForums.Data;
 using LambdaForums.Data.Models;
 using LambdaForums.Models.Forum;
+using LambdaForums.Models.Post;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,9 +40,43 @@ namespace LambdaForums.Controllers
         public IActionResult Topic(int id)
         {
             var forum = _forumService.GetById(id);
-            var posts _postService.GetFilteredPosts(id);
+            var posts = forum.Posts;  //_postService.GetPostsByForum(id);
 
-            var postListings = 
+            var postListings = posts.Select(post => new PostListingModel
+            {
+                Id = post.Id,
+                AuthorId = post.User.Id,
+                AuthorRating = post.User.Rating,
+                Title = post.Title,
+                DatePosted = post.Created,
+                RepliesCount = post.Replies.Count(),
+                Forum = BuildForumListing(post)
+                
+            });
+
+            var model = new ForumTopicModel
+            {
+                Posts = postListings,
+                Forum = BuildForumListing(forum)
+            };
+
+            return View(model);
+        }
+
+        private ForumListingModel BuildForumListing(Forum forum)
+        {
+            return new ForumListingModel
+            {
+                Id = forum.Id,
+                Title = forum.Title,
+                Description = forum.Description,
+                ImageUrl = forum.ImageUrl
+            };
+        }
+
+        private ForumListingModel BuildForumListing(Post post)
+        {
+            return BuildForumListing(post.Forum);
         }
     }
 }
