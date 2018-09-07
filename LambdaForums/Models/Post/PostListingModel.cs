@@ -15,7 +15,7 @@ namespace LambdaForums.Models.Post
         public int AuthorRating { get; set; }
         public DateTime DatePosted { get; set; }
 
-       public ForumListingModel Forum { get; set; }
+        public ForumListingModel Forum { get; set; }
 
         public int RepliesCount { get; set; }
     }

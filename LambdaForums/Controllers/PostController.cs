@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LambdaForums.Data;
+using LambdaForums.Data.Models;
 using LambdaForums.Models.Post;
 using LambdaForums.Models.Reply;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LambdaForums.Controllers
@@ -12,10 +14,16 @@ namespace LambdaForums.Controllers
     public class PostController : Controller
     {
         private readonly IPost _postService;
+        private readonly IForum _forumService;
 
-        protected PostController(IPost postService)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public PostController(IPost postService, IForum forumService, UserManager<ApplicationUser> userManager)
         {
             _postService = postService;
+            _forumService = forumService;
+            _userManager = userManager;
+
         }
 
         public IActionResult Index(int id)
@@ -38,7 +46,46 @@ namespace LambdaForums.Controllers
 
             };
 
-            return View();
+            return View(model);
+        }
+
+        public IActionResult Create(int id)
+        {
+            var forum = _forumService.GetById(id);
+            var model = new NewPostModel
+            {
+                ForumID = forum.Id,
+                ForumName = forum.Title,
+                ForumImageUrl = forum.ImageUrl,
+                AuthorName = User.Identity.Name
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPost(NewPostModel model)
+        {
+            var userId = _userManager.GetUserId(User);
+            var user =  _userManager.FindByIdAsync(userId).Result;
+            var post = BuildPostReplies(model, user);
+
+             await _postService.Add(post);
+            //TODO : Implement user rating system
+            return RedirectToAction("Index", "Post", new { id = post.Id });
+        }
+
+        private Post BuildPostReplies(NewPostModel model, ApplicationUser user)
+        {
+            var forum = _forumService.GetById(model.ForumID);
+            return new Post
+            {
+                Title = model.Title,
+                Content = model.Content,
+                Created = DateTime.Now,
+                User = user,
+                Forum = forum
+            };
         }
 
         private IEnumerable<PostReplyModel> BuildPostReplies(IEnumerable<PostReply> replies)
@@ -53,8 +100,10 @@ namespace LambdaForums.Controllers
                 Created = reply.Created,
                 ReplyContent = reply.Content
             });
-
-            
         }
+
+
     }
+
+
 }
