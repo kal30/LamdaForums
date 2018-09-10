@@ -1,0 +1,64 @@
+﻿.postTitle {
+    font-family: 'Robtot';
+    font-weight: bold;
+}
+
+.postSubTitle {
+    color: #888;
+    font-family: 'Roboto Mono';
+    font-size: 0.8em;
+}
+
+.postData {
+    display: inline-block;
+}
+
+.pstDate {
+    color: #888;
+    font-family: 'Roboto Mono';
+    font-size: 0.8em;
+}
+
+.postLogo {
+    display: inline-block;
+    border-radius: 3px;
+    margin-right: 20px;
+    height: 40px;
+    width: 40px;
+    background-color: #ddd;
+}
+
+.postAuthorImage {
+    height: 80px;
+    width: 80px;
+    background-size: 100%;
+}
+
+.postAuthorContiner {
+    padding: 12px;
+    color: gray;
+    font-family: 'Roboto';
+    width: 190px;
+}
+
+.postIndexTitle {
+    font-size: 1.4em;
+}
+
+.postContentContainer {
+    font-family: 'Roboto';
+    color: #222;
+    padding: 22px;
+    border-left: 1px solid #ddd;
+}
+
+.postAuthorRating {
+    font-size: 0.9em;
+    color: #159;
+    font-family: 'Roboto Mono';
+}
+
+#postIndexContent {
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2), 0 6px 6px rgba(0,0,0,0.3);
+}

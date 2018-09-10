@@ -23,4 +23,9 @@
     <ProjectReference Include="..\LamdaForums.Service\LamdaForums.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\forum\" />
+    <Folder Include="wwwroot\images\theme\" />
+  </ItemGroup>
+
 </Project>

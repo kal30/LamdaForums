@@ -11,6 +11,7 @@ namespace LambdaForums.Models.Reply
         public string AuthorImageUrl { get; set; }
         public int AutorRating { get; set; }
         public DateTime Created { get; set; }
+        public bool IsAuthorAdmin { get; set; }
 
         public int PostId { get; set; }
     }

@@ -13,6 +13,8 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/Post.css" />
+        <link rel="stylesheet" href="~/css/forum.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -20,6 +22,8 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -57,7 +61,7 @@
                 @if (!SignInManager.IsSignedIn(User))
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a asp-controller="Account" asp-action="Login">Sign in</a></li>
+                        <li><a asp-controller="Account" asp-action="Login">Log in</a></li>
                         <li class="active"><a asp-controller="Account" asp-action="Register">Register</a></li>
                     </ul>
 
@@ -69,12 +73,11 @@
 
                         <ul class="nav navbar-nav navbar-right">
                             <li>Hello, @UserManger.GetUserName(User)</li>
-                            <li><a asp-controller="Account" asp-action="Logout">Sign Out</a></li>
+                            <li><a asp-controller="Account" asp-action="Logout">Log Out</a></li>
                         </ul>
                     </form>
 
                 }
-                @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
