@@ -65,9 +65,13 @@ namespace LamdaForums.Service
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Post> GetFilteredPosts(string search)
+        public IEnumerable<Post> GetFilteredPosts(Forum forum,string search)
         {
-            throw new NotImplementedException();
+            return string.IsNullOrEmpty(search) ?  // if query is null return all posts else only search query
+                forum.Posts : 
+                forum.Posts.Where(post => 
+            post.Title.Contains(search) || 
+            post.Content.Contains(search));
         }
 
        

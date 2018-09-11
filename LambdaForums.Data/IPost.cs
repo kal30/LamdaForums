@@ -10,7 +10,7 @@ namespace LambdaForums.Data
     {
         Post GetById(int id);
         IEnumerable<Post> GetAll();
-        IEnumerable<Post> GetFilteredPosts(string search);
+        IEnumerable<Post> GetFilteredPosts(Forum forum,string search);
         IEnumerable<Post> GetPostsByForum(int id);
         IEnumerable<Post> GetLatestPosts(int n);
 
