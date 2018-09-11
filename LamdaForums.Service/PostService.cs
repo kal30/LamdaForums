@@ -65,16 +65,23 @@ namespace LamdaForums.Service
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Post> GetFilteredPosts(Forum forum,string search)
+        public IEnumerable<Post> GetFilteredPosts(Forum forum, string search)
         {
             return string.IsNullOrEmpty(search) ?  // if query is null return all posts else only search query
-                forum.Posts : 
-                forum.Posts.Where(post => 
-            post.Title.Contains(search) || 
+                forum.Posts :
+                forum.Posts.Where(post =>
+            post.Title.Contains(search) ||
             post.Content.Contains(search));
         }
 
-       
+        public IEnumerable<Post> GetFilteredPosts(string search)
+        {
+            return GetAll().Where(post
+                => post.Title.Contains(search)
+                || post.Content.Contains(search));
+        }
+
+
         public IEnumerable<Post> GetPostsByForum(int id)
         {
             var posts = _context.Forums
@@ -84,4 +91,6 @@ namespace LamdaForums.Service
 
         }
     }
+
+        
 }
