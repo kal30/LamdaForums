@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LambdaForums.Data
 {
-    class IUpload
+    public class IUpload
     {
     }
 }
